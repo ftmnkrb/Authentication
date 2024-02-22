@@ -1,0 +1,41 @@
+<body>
+     <div class="container">
+          <div class="row justify-content-center align-items-center vh-100   mr-3">
+              <div class="col-md-6">
+                  <form *ngIf="!loading; else loadingSpinner" class="login-form" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+                      <h2 class="text-center mb-4">LOGIN</h2>
+                      <div>
+                          <div class="mb-3">
+                              
+                              <input  type="email" ngModel name="email" class="form-control" placeholder="Email" id="email" email required>
+                          </div>
+                          <div class="mb-3">
+                             
+                              <input  type="password" ngModel name="password" class="form-control" placeholder="Password" id="password" required minlength="6">
+                          </div>
+                          
+                          <div class="d-grid gap-2 mb-3">
+
+                              <button type="submit" class="btn btn-primary btn-block" >  <!-- [disabled]="authForm.invalid" vardı kaldırdım -->
+                                   {{isLoginMode ? 'Login': 'Register'}}
+                              </button>
+                              <button type="button"  class="btn btn-outline-pink btn-block" (click)="onToggleMode()">
+                                   {{isLoginMode ? 'Register': 'Login'}}
+                              </button>
+                          </div>
+                         </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+      
+</body>
+
+<ng-template #loadingSpinner>
+    <div class="d-flex justify-content-between align-items-center vh-100 spinner-location">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+</ng-template>
+

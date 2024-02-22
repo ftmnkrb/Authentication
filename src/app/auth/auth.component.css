@@ -1,0 +1,41 @@
+body {
+     background-color: #f8f9fa;
+     background-image: url('../../assets/img/love-arkaplan.png');
+     background-size: cover;
+     background-position: center;
+ }
+
+ .login-form {
+     max-width: 400px;
+     padding: 20px;
+     border-radius: 10px;
+     background-color: #fff;
+     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+ }
+ .login-form input[type="email"],
+ .login-form input[type="password"] {
+     margin-bottom: 15px;
+ }
+
+ .col-md-6{
+     margin-left: 239px;
+ }
+
+ .btn-primary{
+     background-color: #f26665;
+     border: #f26665;
+ }
+
+ .btn-outline-pink{
+     background-color: #fff;
+     border: #f36664!important;
+     color: #f36664;
+ }
+
+ .spinner-location{
+    margin-left: 158px;
+ }
+
+ .text-primary{
+    color: #f36664!important;
+ }
