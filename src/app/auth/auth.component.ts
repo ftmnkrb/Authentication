@@ -7,13 +7,15 @@ import { AuthResponse } from '../models/AuthResponse';
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.css']
+  styleUrls: ['./auth.component.css'],
+
 })
 export class AuthComponent implements OnInit {
 
 
   isLoginMode: boolean = false;
-  loading: boolean = false
+  loading: boolean = false;
+  
 
   constructor(private authService: AuthService) {}
 
@@ -46,16 +48,14 @@ export class AuthComponent implements OnInit {
 
     authResponse.subscribe(response => {
       console.log(response);
-      // alert("KAYIT BAŞARILI :)")
+      alert("KAYIT BAŞARILI :)")
       this.loading = false;
-
-      // this.loading = false;
     }, err => {
       console.log(err);
       alert(err.error.error.message)
       this.loading = false;
 
-      // this.loading = false;
+      
     })
 
     form.reset();
