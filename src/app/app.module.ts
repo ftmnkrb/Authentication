@@ -8,23 +8,27 @@ import { FirebaseService } from './services/firebase.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HomepageComponent } from './homepage/homepage.component';
 import { AppRoutingModule } from './app-routing.module';
+import { CommonModule } from '@angular/common';
+import { AuthInterceptor } from './services/auth.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorInterceptor } from './services/error.interceptor';
+
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AuthComponent,
-    HomepageComponent
-  ],
+  declarations: [AppComponent, AuthComponent, HomepageComponent],
   imports: [
+    CommonModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [FirebaseService,
-  ],
-  bootstrap: [AppComponent]
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, 
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
+    
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

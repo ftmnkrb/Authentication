@@ -1,47 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-// import { Movie } from '../models/movie';
-// import { AlertifyService } from '../services/alertify.service';
-// import { MovieService } from '../services/movie.service';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
-  providers: [AuthService]
+  // providers: [AuthService]
 })
 export class HomepageComponent implements OnInit {
-
-  
-
-  filterText: string = "";
-  error: any;
-
-  loading: boolean = false;
-  isAuthenticated: boolean = false;
-
+  isAuthenticated = false;
 
   constructor(
     // private activatedRoute: ActivatedRoute,
-    private authService: AuthService) {}
+    private authService: AuthService
+  ) {}
+
+  // isauth$ = this.authService.user.asObservable().pipe(map((user) => !!user)); //ileri seviye yapma
 
   ngOnInit(): void {
+    this.authService.user.subscribe((user) => {
+      // console.log(user);
+      this.isAuthenticated = user == null ? false : true;
+      // console.log(this.isAuthenticated);
+    });
+
   
-
-this.authService.user.subscribe(user => {
-  this.isAuthenticated = !!user;
-})
-
-
   }
 
-  
-
- 
-
-
-
-
-
+  logout(): void {
+    console.log('logout');
+    this.authService.logout();
+  }
 }

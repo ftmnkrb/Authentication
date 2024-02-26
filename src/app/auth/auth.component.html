@@ -1,6 +1,11 @@
 <body>
      <div class="container">
           <div class="row justify-content-center align-items-center vh-100   mr-3">
+
+            <div *ngIf="error" class="alert alert-dark">
+                {{ error }}
+            </div>
+
               <div class="col-md-6">
                   <form *ngIf="!loading; else loadingSpinner" class="login-form" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
                       <h2 class="text-center mb-4">LOGIN</h2>
