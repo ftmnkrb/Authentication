@@ -12,11 +12,12 @@ import { CommonModule } from '@angular/common';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptor } from './services/error.interceptor';
+import { AuthLoginComponent } from './auth/auth-login/auth-login.component';
 
 
 
 @NgModule({
-  declarations: [AppComponent, AuthComponent, HomepageComponent],
+  declarations: [AppComponent, AuthComponent, HomepageComponent, AuthLoginComponent],
   imports: [
     CommonModule,
     BrowserModule,

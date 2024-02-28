@@ -19,13 +19,15 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  signUp(email: string, password: string) {
+  signUp(email: string, password: string, name: string, location: string) {
     console.warn('signUp');
     return this.http
-      .post<any>(`${this.apiUrl}`, {
+      .post<any>(`${this.apiUrl}user/register`, {
+        name: name,
         email: email,
         password: password,
-        returnSecureToken: true,
+        location: location
+        // returnSecureToken: true,
       })
       .pipe(
         tap((response) => {
@@ -41,8 +43,8 @@ export class AuthService {
         `${this.apiUrl}`,
         {
           email: email,
-          password: password,
-          returnSecureToken: true,
+          password: password
+          // returnSecureToken: true,
         }
       )
       .pipe(
