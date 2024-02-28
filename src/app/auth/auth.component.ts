@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { AuthResponse } from '../models/AuthResponse';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http'; //emin değilim
+import { CompareValidatorDirective } from '../shared/compare-validator.directive';
+
 
 
 @Component({
@@ -39,6 +41,7 @@ export class AuthComponent implements OnInit {
     console.log(email);
     console.log(password);
     console.log(name);
+    console.log(location);
 
     this.loading = true;
 

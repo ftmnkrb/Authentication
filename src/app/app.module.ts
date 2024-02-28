@@ -13,18 +13,20 @@ import { AuthInterceptor } from './services/auth.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptor } from './services/error.interceptor';
 import { AuthLoginComponent } from './auth/auth-login/auth-login.component';
+import { CompareValidatorDirective } from './shared/compare-validator.directive';
 
 
 
 @NgModule({
-  declarations: [AppComponent, AuthComponent, HomepageComponent, AuthLoginComponent],
+  declarations: [AppComponent, AuthComponent, HomepageComponent, AuthLoginComponent ,
+    CompareValidatorDirective],
   imports: [
     CommonModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   providers: [FirebaseService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, 
