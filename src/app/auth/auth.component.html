@@ -1,60 +1,60 @@
 <body>
-     <div class="container">
-          <div class="row justify-content-center align-items-center vh-100   mr-3">
-
-            <div *ngIf="error" class="alert alert-dark">
-                {{ error }}
+    <div class="container">
+      <div class="row justify-content-center align-items-center vh-100 mr-3">
+  
+        <div *ngIf="error" class="alert alert-dark">
+          {{ error }}
+        </div>
+  
+        <div class="col-md-6">
+          <form *ngIf="!loading; else loadingSpinner" class="login-form" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+            <h2 class="text-center mb-4">{{ isLoginMode ? 'GİRİŞ YAP' : 'KAYIT OL' }}</h2>
+            <div *ngIf="!isLoginMode"> <!-- Sadece kayıt modunda görünecek kısımlar -->
+              <div class="mb-3">
+                <input type="text" ngModel name="name" class="form-control" placeholder="Name-Surname" id="name" required>
+              </div>
             </div>
 
-              <div class="col-md-6">
-                  <form *ngIf="!loading; else loadingSpinner" class="login-form" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
-                      <h2 class="text-center mb-4">KAYIT OL</h2>
-                      <div>
-                        <div class="mb-3">
-                            <input  type="text" ngModel name="name" class="form-control" placeholder="Name-Surname" id="name" required>
-                        </div>
-                          <div class="mb-3">
-                              <input  type="email" ngModel name="email" class="form-control" placeholder="Email" id="email" email required>
-                          </div>
-                          
-                          <div class="mb-3">
-                             <input  type="password" ngModel name="password" class="form-control" placeholder="Password" id="password" required minlength="6">
-                          </div>
+            <div class="mb-3">
+              <input type="email" ngModel name="email" class="form-control" placeholder="Email" id="email" email required>
+            </div>
 
-                          <div class="mb-3">   
-                            <input  type="password" ngModel name="password" class="form-control" placeholder="Password again" id="password" required minlength="6">
-                         </div>
+            <div class="mb-3">
+              <input type="password" ngModel name="password" class="form-control" placeholder="Password" id="password" required minlength="6">
+            </div>
 
-                         <div class="row mb-3"> <!-- Değiştirilen kısım: row class'ı eklendi -->
-                            <div class="col"> <!-- Değiştirilen kısım: col class'ı eklendi -->
-                              <select id="citySelect" class="form-select" (change)="selectCity($event)">
-                                <option value="">Şehir Seçin</option>
-                                <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
-                              </select>
-                            </div>
-                          </div>
-                          
-                          <div class="d-grid gap-2 mb-3">
-                              <button type="submit" class="btn btn-primary btn-block" >  <!-- [disabled]="authForm.invalid" vardı kaldırdım -->
-                                   {{isLoginMode ? 'Login': 'Register'}}
-                              </button>
-                              <button type="button"  class="btn btn-outline-pink btn-block" (click)="onToggleMode()">
-                                   {{isLoginMode ? 'Register': 'Login'}}
-                              </button>
-                          </div>
-                         </div>
-                  </form>
+
+            <div class="mb-3" *ngIf="!isLoginMode"> <!-- Sadece kayıt modunda görünecek kısımlar -->
+              <input type="password" ngModel name="confirmPassword" class="form-control" placeholder="Password again" id="confirmPassword" required minlength="6">
+              
+            </div>
+
+            
+            <div class="row mb-3" *ngIf="!isLoginMode"> <!-- Sadece kayıt modunda görünecek kısımlar -->
+              <div class="col">
+                <select ngModel name="location" id="location" class="form-select" (change)="selectCity($event)" >
+                  <option value="">Şehir Seçin</option>
+                  <option *ngFor="let city of cities" [ngValue]="city">{{ city }}</option>
+                </select>
               </div>
-          </div>
-      </div>
-      
-</body>
+            </div>
 
-<ng-template #loadingSpinner>
-    <div class="d-flex justify-content-between align-items-center vh-100 spinner-location">
-        <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
+
+            <div class="d-grid gap-2 mb-3">
+              <button type="submit" class="btn btn-primary btn-block">{{ isLoginMode ? 'Login' : 'Register' }}</button>
+              <button type="button" class="btn btn-outline-pink btn-block" (click)="onToggleMode()">{{ isLoginMode ? 'Register' : 'Login' }}</button>
+            </div>
+          </form>
         </div>
+      </div>
     </div>
-</ng-template>
-
+  </body>
+  
+  <ng-template #loadingSpinner>
+    <div class="d-flex justify-content-between align-items-center vh-100 spinner-location">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </ng-template>
+  

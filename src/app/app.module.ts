@@ -16,6 +16,7 @@ import { AuthLoginComponent } from './auth/auth-login/auth-login.component';
 
 
 
+
 @NgModule({
   declarations: [AppComponent, AuthComponent, HomepageComponent, AuthLoginComponent],
   imports: [
@@ -24,7 +25,7 @@ import { AuthLoginComponent } from './auth/auth-login/auth-login.component';
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   providers: [FirebaseService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, 

@@ -26,15 +26,18 @@ export class AuthService {
         name: name,
         email: email,
         password: password,
-        location: location
+        location: location,
         // returnSecureToken: true,
+        
       })
       .pipe(
         tap((response) => {
           this.handleAuthentication(response.email, response.localId, response.idToken, +response.expiresIn)}
           )
       );
+      
   }
+  
 
   login(email: string, password: string) {
     console.warn('signIn');
@@ -99,3 +102,4 @@ export class AuthService {
   
   }
 }
+
