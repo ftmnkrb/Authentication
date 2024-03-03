@@ -13,12 +13,15 @@ import { AuthInterceptor } from './services/auth.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptor } from './services/error.interceptor';
 import { AuthLoginComponent } from './auth/auth-login/auth-login.component';
+import { AlertComponent } from './shared/alert/alert.component';
+import { LoadingComponent } from './shared/loading/loading.component';
+
 
 
 
 
 @NgModule({
-  declarations: [AppComponent, AuthComponent, HomepageComponent, AuthLoginComponent],
+  declarations: [AppComponent, AuthComponent, HomepageComponent, AuthLoginComponent, AlertComponent, LoadingComponent ],
   imports: [
     CommonModule,
     BrowserModule,

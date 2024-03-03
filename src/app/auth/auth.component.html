@@ -1,60 +1,124 @@
 <body>
-    <div class="container">
-      <div class="row justify-content-center align-items-center vh-100 mr-3">
-  
-        <div *ngIf="error" class="alert alert-dark">
-          {{ error }}
-        </div>
-  
-        <div class="col-md-6">
-          <form *ngIf="!loading; else loadingSpinner" class="login-form" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
-            <h2 class="text-center mb-4">{{ isLoginMode ? 'GİRİŞ YAP' : 'KAYIT OL' }}</h2>
-            <div *ngIf="!isLoginMode"> <!-- Sadece kayıt modunda görünecek kısımlar -->
-              <div class="mb-3">
-                <input type="text" ngModel name="name" class="form-control" placeholder="Name-Surname" id="name" required>
-              </div>
-            </div>
+  <div class="container">
+    <div class="row justify-content-center align-items-center vh-100 mr-3">
+      <!-- <div *ngIf="error" class="alert alert-dark">
+        {{ error }}
+      </div> -->
 
+      <app-alert *ngIf="error" [message]="error" (close)="closeDialog()"></app-alert>
+
+      <div class="col-md-6">
+        <form
+          *ngIf="!loading; else loadingSpinner"
+          class="login-form"
+          [formGroup]="myForm"
+          (ngSubmit)="myFormSubmit()"
+        >
+          <!-- burda submit fonksiyonu parametre bekliyor ama gerek yok -->
+          <h2 class="text-center mb-4">
+            {{ isLoginMode ? 'GİRİŞ YAP' : 'KAYIT OL' }}
+          </h2>
+          <div *ngIf="!isLoginMode">
             <div class="mb-3">
-              <input type="email" ngModel name="email" class="form-control" placeholder="Email" id="email" email required>
+              <input
+                type="text"
+                formControlName="name"
+                class="form-control"
+                placeholder="Name-Surname"
+              />
             </div>
+          </div>
 
-            <div class="mb-3">
-              <input type="password" ngModel name="password" class="form-control" placeholder="Password" id="password" required minlength="6">
+          <div class="mb-3">
+            <input
+              type="email"
+              formControlName="email"
+              class="form-control"
+              placeholder="Email"
+            />
+          </div>
+
+          <div class="mb-3">
+            <input
+              type="password"
+              formControlName="password"
+              name="password"
+              class="form-control"
+              placeholder="Password"
+            />
+            <div
+              *ngIf="
+                myForm.get('password')?.dirty &&
+                myForm.get('password')?.hasError('required')
+              "
+              class="form-text"
+            >
+              Bu alan zorunludur!
             </div>
-
-
-            <div class="mb-3" *ngIf="!isLoginMode"> <!-- Sadece kayıt modunda görünecek kısımlar -->
-              <input type="password" ngModel name="confirmPassword" class="form-control" placeholder="Password again" id="confirmPassword" required minlength="6">
-              
+            <div
+              *ngIf="myForm.get('password')?.hasError('minlenght')"
+              class="form-text"
+            >
+              Şifreniz en az 6 karakter içermelidir.
             </div>
+            <!-- <div *ngIf="myForm.get('password').errors?.['pattern']">
+                Şifreniz en az 1 harf ve 1 sayı içermelidir.
+              </div> -->
+          </div>
 
-            
-            <div class="row mb-3" *ngIf="!isLoginMode"> <!-- Sadece kayıt modunda görünecek kısımlar -->
-              <div class="col">
-                <select ngModel name="location" id="location" class="form-select" (change)="selectCity($event)" >
-                  <option value="">Şehir Seçin</option>
-                  <option *ngFor="let city of cities" [ngValue]="city">{{ city }}</option>
-                </select>
-              </div>
+          <div class="mb-3" *ngIf="!isLoginMode">
+            <!-- Sadece kayıt modunda görünecek kısımlar -->
+            <input
+              type="password"
+              formControlName="rePassword"
+              class="form-control"
+              placeholder="Password again"
+            />
+            <div
+              *ngIf="myForm.get('rePassword')?.dirty && myForm.errors?.['PasswordNoMatch']"
+              class="form-text"
+            >
+              ŞİFRELER EŞLEŞMİYOR !!!
             </div>
+          </div>
+          <!-- dirty'den tam emin değilim  -->
 
-
-            <div class="d-grid gap-2 mb-3">
-              <button type="submit" class="btn btn-primary btn-block">{{ isLoginMode ? 'Login' : 'Register' }}</button>
-              <button type="button" class="btn btn-outline-pink btn-block" (click)="onToggleMode()">{{ isLoginMode ? 'Register' : 'Login' }}</button>
+          <div class="row mb-3" *ngIf="!isLoginMode">
+            <!-- Sadece kayıt modunda görünecek kısımlar -->
+            <div class="col">
+              <select formControlName="location" class="form-select" >
+                <option value="">Şehir Seçin</option>
+                <option *ngFor="let city of cities" [value]="city">
+                  {{ city }}
+                </option>
+              </select>
             </div>
-          </form>
-        </div>
+          </div>
+
+          <div class="d-grid gap-2 mb-3">
+            <button type="submit" class="btn btn-primary btn-block">
+              {{ isLoginMode ? 'Login' : 'Register' }}
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-pink btn-block"
+              (click)="onToggleMode()"
+            >
+              {{ isLoginMode ? 'Register' : 'Login' }}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
-  </body>
-  
-  <ng-template #loadingSpinner>
-    <div class="d-flex justify-content-between align-items-center vh-100 spinner-location">
-      <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
+  </div>
+</body>
+
+<ng-template #loadingSpinner>
+  <div
+    class="d-flex justify-content-between align-items-center vh-100 spinner-location"
+  >
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
     </div>
-  </ng-template>
-  
+  </div>
+</ng-template>
