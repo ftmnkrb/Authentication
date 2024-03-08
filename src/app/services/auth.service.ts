@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  apiUrl = 'https://kadinhepp-7229fba7916e.herokuapp.com/';
-  api_key = 'e1eee689-a4f8-4cd3-8521-e88982b2d6af';  
+  apiUrl = '';
+  api_key = '';  
 
   // user = new Subject<User | null>();
   user = new BehaviorSubject<User | null>(null);
